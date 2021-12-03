@@ -1,0 +1,47 @@
+<html>
+<html>
+
+<head>
+
+    <title>Github Users</title>
+</head>
+
+<body style="background-color: rgb(250, 250, 212);">
+
+    <button
+        style="font-size: 26px;padding: 14px 40px; border-radius: 12px; border: 6px solid #af4f4c;background-color: rgb(240, 136, 87)"
+        onclick="loadDoc()"> Load GitHub User</button>
+    <p id="output"></p>
+</body>
+
+<script>
+
+    function loadDoc() {
+        var req = new XMLHttpRequest();
+        req.onload = function () {
+            var people = JSON.parse(req.responseText)
+            var output = ' ';
+            for (var i in people) {
+                output +=
+                    '<div style="background-color: rgb(214, 214, 210);">' +
+                    '<img src="' + people[i].avatar_url + '"width="80px" height="80px"border-radius: "8px">' +
+                    '<ul>' +
+                    '<li>ID: ' + people[i].id + '</li>' +
+                    '<li>Login: ' + people[i].login + '</li>' +
+                    '<li>Repos:' + people[i].repos_url + '</li>' +
+                    '<li>Github Link: ' + people[i].html_url + '</li>' +
+                    '<li>Followers:' + people[i].followers_url + '</li>' +
+                    '<li>Admin:' + people[i].site_admin + '</li>' +
+                    '</ul>' +
+                    '</div>';
+            }
+            console.log(output);
+            document.getElementById("output").innerHTML = output;
+        };
+        req.open("GET", "https://api.github.com/users", true);
+        req.send();
+        return;
+    }
+</script>
+
+</html>
